@@ -1,0 +1,74 @@
+---
+- name: Ensure Apache is up on all app servers
+  hosts: nautlius_app_servers
+  become: yes
+  vars:
+    apache_port: 3004                                   # <── required port
+    apache_package:
+      RedHat: httpd
+      Debian: apache2
+
+  tasks:
+    - name: Stop any service using {{ apache_port }}
+      shell: |
+        fuser -k {{ apache_port }}/tcp 2>/dev/null || true
+      changed_when: false
+
+    - name: Install Apache
+      package:
+        name: "{{ apache_package[ansible_os_family] }}"
+        state: present
+      register: apache_install
+
+    - name: Announce install status
+      debug:
+        msg: "Apache installed (or already present) on {{ inventory_hostname }}"
+      when: apache_install.changed
+
+    - name: Create Apache conf dir (Debian family)
+      file:
+        path: /etc/apache2/conf-available
+        state: directory
+      when: ansible_os_family == "Debian"
+
+    - name: Set Listen port (RedHat family)
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^Listen '
+        line: "Listen {{ apache_port }}"
+        backup: yes
+      when: ansible_os_family == "RedHat"
+      notify: Restart Apache
+
+    - name: Set Listen port (Debian family)
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: '^Listen '
+        line: "Listen {{ apache_port }}"
+        backup: yes
+      when: ansible_os_family == "Debian"
+      notify: Restart Apache
+
+    - name: Ensure Apache is enabled and running
+      service:
+        name: "{{ apache_package[ansible_os_family] }}"
+        state: started
+        enabled: yes
+      register: apache_service
+
+    - name: Announce service status
+      debug:
+        msg: "Apache is running on {{ inventory_hostname }}:{{ apache_port }}"
+
+    - name: Wait for Apache to answer on {{ apache_port }}
+      wait_for:
+        port: "{{ apache_port }}"
+        host: "{{ ansible_default_ipv4.address }}"
+        delay: 2
+        timeout: 30
+
+  handlers:
+    - name: Restart Apache
+      service:
+        name: "{{ apache_package[ansible_os_family] }}"
+        state: restarted
