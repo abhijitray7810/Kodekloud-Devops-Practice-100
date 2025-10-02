@@ -1,1 +1,49 @@
+---
+- name: Setup Apache with two static websites on App Server 3
+  hosts: appserver3
+  become: yes
+
+  vars:
+    apache_port: 5004
+    websites:
+      - { name: "official", src: "/home/thor/official" }
+      - { name: "games", src: "/home/thor/games" }
+
+  tasks:
+    - name: Install Apache httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: Update Apache to listen on custom port {{ apache_port }}
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^Listen '
+        line: "Listen {{ apache_port }}"
+        state: present
+        backrefs: yes
+
+    - name: Create website directories under /var/www/html
+      file:
+        path: "/var/www/html/{{ item.name }}"
+        state: directory
+        owner: apache
+        group: apache
+        mode: '0755'
+      loop: "{{ websites }}"
+
+    - name: Copy website files from jump host to app server
+      copy:
+        src: "{{ item.src }}/"
+        dest: "/var/www/html/{{ item.name }}/"
+        owner: apache
+        group: apache
+        mode: '0644'
+      loop: "{{ websites }}"
+
+    - name: Ensure Apache is started and enabled
+      service:
+        name: httpd
+        state: started
+        enabled: yes
 
