@@ -14,7 +14,7 @@ sudo systemctl start nginx
 sudo mkdir -p /etc/nginx/ssl
 sudo mv /tmp/nautilus.crt /etc/nginx/ssl/
 sudo mv /tmp/nautilus.key /etc/nginx/ssl/
-sudo chmod 600 /etc/nginx/ssl/nautilus.key
+sudo chmod 600 /etc/nginx/ssl/nautilus.key 
 
 # 4. Backup default config and copy custom nginx.conf
 sudo mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.bak
