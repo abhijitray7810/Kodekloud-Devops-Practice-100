@@ -1,1 +1,3 @@
+[appserver3]
+stapp03 ansible_host=172.16.238.12 ansible_user=banner ansible_ssh_pass=BigGr33n ansible_become_pass=BigGr33n
 
