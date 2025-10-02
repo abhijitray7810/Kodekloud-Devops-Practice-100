@@ -1,4 +1,4 @@
-## 🛠 Install Ansible on CentOS/RHEL
+## 🛠 Install Ansible on CentOS/RHEL 
 # First update system
 ```
 sudo yum update -y
