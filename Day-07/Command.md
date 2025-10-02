@@ -1,4 +1,4 @@
-# Go to Ansible directory
+# Go to Ansible directory 
 ```
 cd /home/thor/ansible
 ```
