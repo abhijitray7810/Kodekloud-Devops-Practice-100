@@ -12,3 +12,4 @@ GRANT ALL PRIVILEGES ON DATABASE kodekloud_db3 TO kodekloud_gem;
 \q
 ✅ Verification
 psql -U kodekloud_gem -d kodekloud_db3 -W
+ 
