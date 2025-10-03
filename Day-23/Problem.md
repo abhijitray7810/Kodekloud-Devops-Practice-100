@@ -2,7 +2,7 @@ There is a Git server utilized by the Nautilus project teams. Recently, a new de
 
 
 
-Click on the Gitea UI button located on the top bar to access the Gitea page.
+Click on the Gitea UI button located on the top bar to access  the Gitea page.
 
 
 Login to Gitea server using username jon and password Jon_pass123.
