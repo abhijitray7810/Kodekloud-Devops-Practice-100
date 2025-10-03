@@ -12,7 +12,7 @@ Fix Git safe directory issue (if error occurs)
 
 bash
 Copy code
-git config --global --add safe.directory /usr/src/kodekloudrepos/blog
+git config --global --add safe.directory /usr/sr c/kodekloudrepos/blog
 Check current branch
 
 bash
