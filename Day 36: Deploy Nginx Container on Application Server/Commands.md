@@ -1,8 +1,3 @@
----
-
-### 🧾 **command.md**
-
-````markdown
 # Nginx Container Deployment on Application Server 1
 
 ## Task Description
