@@ -119,7 +119,7 @@ sudo docker exec kkloud curl http://localhost:8082
 sudo docker exec kkloud ps aux | grep apache2
 ```
 
-## Configuration Files Modified
+ ## Configuration Files Modified
 
 | File | Location | Changes |
 |------|----------|---------|
