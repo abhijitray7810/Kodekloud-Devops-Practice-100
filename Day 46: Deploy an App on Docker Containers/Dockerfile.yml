@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web:
+    container_name: php_blog
+    image: php:apache
+    ports:
+      - "8084:80"
+    volumes:
+      - /var/www/html:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    container_name: mysql_blog
+    image: mariadb:latest
+    environment:
+      MYSQL_DATABASE: database_blog
+      MYSQL_USER: blog_user
+      MYSQL_PASSWORD: MyC0mpl3xP@ss
+      MYSQL_ROOT_PASSWORD: rootPass123
+    ports:
+      - "3306:3306"
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
