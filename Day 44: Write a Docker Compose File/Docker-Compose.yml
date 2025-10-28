@@ -1,0 +1,12 @@
+# sudo tee /opt/docker/docker-compose.yml > /dev/null <<EOF
+version: '3.8'
+
+services:
+  httpd:
+    image: httpd:latest
+    container_name: httpd
+    ports:
+      - "8086:80"
+    volumes:
+      - /opt/sysops:/usr/local/apache2/htdocs
+# EOF
