@@ -1,74 +1,61 @@
-# Kubernetes Pod with Environment Variables - Greeting Application
+# Task: Create a pod to print environment variables greeting
 
-## Objective
-Setup a Kubernetes pod that demonstrates environment variable usage for the Nautilus DevOps team's greeting application.
-
-## Requirements
-- Create a pod named `print-envars-greeting`
-- Configure container with environment variables
-- Print a greeting message using those variables
-- Set restart policy to Never to avoid crash loop
-
-## Solution
-
-### Pod Configuration
-The pod is configured with the following specifications:
-
-- **Pod Name**: `print-envars-greeting`
-- **Container Name**: `print-env-container`
-- **Image**: `bash`
-- **Restart Policy**: `Never`
-
-### Environment Variables
-Three environment variables are configured:
-
-| Variable | Value |
-|----------|-------|
-| GREETING | Welcome to |
-| COMPANY | xFusionCorp |
-| GROUP | Group |
-
-### Deployment Steps
-
-1. **Create the YAML manifest file**:
+## Step 1: Create the YAML definition file
 ```bash
 vi print-envars-greeting.yaml
+````
+
+## Step 2: Add the following content
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: print-envars-greeting
+spec:
+  containers:
+    - name: print-env-container
+      image: bash
+      command: ["/bin/sh", "-c", 'echo "$(GREETING) $(COMPANY) $(GROUP)"']
+      env:
+        - name: GREETING
+          value: "Welcome to"
+        - name: COMPANY
+          value: "xFusionCorp"
+        - name: GROUP
+          value: "Group"
+  restartPolicy: Never
 ```
 
-2. **Apply the configuration**:
+## Step 3: Create the pod
+
 ```bash
 kubectl apply -f print-envars-greeting.yaml
 ```
 
-3. **Verify pod creation**:
+## Step 4: Verify the pod status
+
 ```bash
 kubectl get pods
 ```
 
-4. **Check the output**:
+(Expected STATUS: `Completed`)
+
+## Step 5: View the output from the pod logs
+
 ```bash
 kubectl logs -f print-envars-greeting
 ```
 
-### Expected Output
+### ✅ Expected Output:
+
 ```
 Welcome to xFusionCorp Group
 ```
 
-### Verification Results
-```bash
-thor@jumphost ~$ kubectl apply -f print-envars-greeting.yaml
-pod/print-envars-greeting created
-
-thor@jumphost ~$ kubectl get pods
-NAME                    READY   STATUS      RESTARTS   AGE
-print-envars-greeting   0/1     Completed   0          5s
-
-thor@jumphost ~$ kubectl logs -f print-envars-greeting
-Welcome to xFusionCorp Group
 ```
 
-## Status
-✅ **Task Completed Successfully**
+---
 
-The pod executed successfully, printed the greeting message, and completed without requiring restarts.
+Would you like me to include a **one-line kubectl run** command version (without YAML file) as a shortcut too?
+```
