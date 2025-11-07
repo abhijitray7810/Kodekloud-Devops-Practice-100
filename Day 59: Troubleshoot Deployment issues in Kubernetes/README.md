@@ -1,28 +1,48 @@
-#!/bin/bash
+# Redis Deployment on Kubernetes
 
-# Check for README file in current directory
-echo "=== Checking for README files ==="
-if [ -f "readme.md" ]; then
-    echo "Found readme.md:"
-    cat readme.md
-elif [ -f "README.md" ]; then
-    echo "Found README.md:"
-    cat README.md
-elif [ -f "README" ]; then
-    echo "Found README:"
-    cat README
-else
-    echo "No README file found in current directory"
-fi
+## Overview
+This repository contains the configuration for deploying Redis on the Nautilus Kubernetes cluster.
 
-# Check for any deployment YAML files
-echo -e "\n=== Checking for deployment YAML files ==="
-ls -la *.yaml *.yml 2>/dev/null || echo "No YAML files found"
+**Deployment Name:** `redis-deployment`
 
-# List all files in current directory
-echo -e "\n=== Files in current directory ==="
-ls -la
+## Prerequisites
+- kubectl configured to access the Kubernetes cluster
+- Appropriate RBAC permissions to manage deployments
 
-# Check the actual deployment from Kubernetes
-echo -e "\n=== Current Redis Deployment Configuration ==="
-kubectl get deployment redis-deployment -o yaml 2>/dev/null || echo "Deployment not found or kubectl not configured"
+## Quick Start
+
+### Check Deployment Status
+```bash
+kubectl get deployment redis-deployment
+kubectl get pods -l app=redis
+```
+
+### View Deployment Details
+```bash
+kubectl describe deployment redis-deployment
+kubectl describe pods -l app=redis
+```
+
+## Troubleshooting Guide
+
+### Current Issue (Morning Incident)
+The Redis deployment went down after configuration changes. Follow these steps to diagnose and fix:
+
+#### Step 1: Check Pod Status
+```bash
+kubectl get pods -l app=redis
+```
+
+Look for pod states:
+- **ImagePullBackOff**: Image name/tag is incorrect
+- **CrashLoopBackOff**: Container is starting but crashing
+- **Pending**: Resource constraints or scheduling issues
+- **Error**: Configuration issues
+
+#### Step 2: Check Events
+```bash
+kubectl describe deployment redis-deployment
+kubectl describe pods -l app=redis
+```
+
+Look for error messages in the Even
