@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-devops
+spec:
+  type: NodePort
+  selector:
+    # Since this is a Pod, not a Deployment, we’ll directly match by name
+    # Alternatively, you can add labels to pod metadata and use them here
+    app: devops
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30008
