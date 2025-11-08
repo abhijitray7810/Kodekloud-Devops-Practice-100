@@ -1,0 +1,65 @@
+---
+# PersistentVolume
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-devops
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/dba
+
+---
+# PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-devops
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+
+---
+# Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-devops
+  labels:
+    app: devops-web
+spec:
+  containers:
+  - name: container-devops
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: devops-storage
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: devops-storage
+    persistentVolumeClaim:
+      claimName: pvc-devops
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-devops
+spec:
+  type: NodePort
+  selector:
+    app: devops-web
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30008
