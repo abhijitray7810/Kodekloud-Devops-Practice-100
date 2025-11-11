@@ -145,4 +145,4 @@ kubectl get all -n iron-namespace-xfusion
 
 ---
 
-Would you like me to create a **README.md** file version for this same project (formatted for GitHub or LinkedIn portfolio)?
+
