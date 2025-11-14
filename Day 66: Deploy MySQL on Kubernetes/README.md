@@ -262,7 +262,7 @@ This project is licensed under the MIT License - see the [.gitignore] file for d
 
 **Your Name**
 - LinkedIn: [ LinkedIn Profile](https://www.linkedin.com/in/abhijit-ray-336442295)
-- GitHub: [](https://github.com/abhijitray7810)
+- GitHub: [github](https://github.com/abhijitray7810)
 
 ## 🌟 Acknowledgments
 
