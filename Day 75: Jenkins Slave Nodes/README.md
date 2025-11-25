@@ -239,6 +239,8 @@ You should see:
 - App_server_2 (stapp02) - Status should show online with a sync icon
 - App_server_3 (stapp03) - Status should show online with a sync icon
 
+
+![image](https://github.com/abhijitray7810/Kodekloud-Devops-Practice-100/blob/1a6436ecd88766e6c184c7b2558e5357db5001b2/Day%2075%3A%20Jenkins%20Slave%20Nodes/Screenshot%202025-11-26%20004113.png)
 #### 2. Test Each Node
 
 Click on each node and verify:
