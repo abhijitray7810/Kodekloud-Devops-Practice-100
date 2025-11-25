@@ -103,7 +103,7 @@ ssh -i ~/.ssh/jenkins_key banner@stapp03 "echo 'Connection successful'"
 ```
 Manage Jenkins → Manage Credentials → (global) → Add Credentials
 ```
-
+![image](https://github.com/abhijitray7810/Kodekloud-Devops-Practice-100/blob/2d3ddd702272e10d9e5388abaf96c1cc82a57c95/Day%2075%3A%20Jenkins%20Slave%20Nodes/Screenshot%202025-11-26%20004050.png)
 #### 2. Create Credentials for Each Server
 
 **Credential 1: For tony@stapp01**
