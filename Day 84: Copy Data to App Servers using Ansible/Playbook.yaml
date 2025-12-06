@@ -1,0 +1,22 @@
+---
+# Ansible Playbook to copy index.html to application servers
+# File: /home/thor/ansible/playbook.yml
+
+- name: Copy index.html file to all application servers
+  hosts: app_servers
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  
+  tasks:
+    - name: Ensure destination directory exists
+      file:
+        path: /opt/devops
+        state: directory
+        mode: '0755'
+    
+    - name: Copy index.html from jump host to application servers
+      copy:
+        src: /usr/src/devops/index.html
+        dest: /opt/devops/index.html
+        mode: '0644'
