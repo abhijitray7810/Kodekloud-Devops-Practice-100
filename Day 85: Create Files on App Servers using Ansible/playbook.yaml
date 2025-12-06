@@ -1,0 +1,19 @@
+---
+- name: Create code.txt file on all app servers
+  hosts: appservers
+  become: yes
+  tasks:
+    - name: Ensure user exists on each server
+      user:
+        name: "{{ file_owner }}"
+        state: present
+
+    - name: Create blank file /opt/code.txt with appropriate ownership and permissions
+      file:
+        path: /opt/code.txt
+        state: touch
+        mode: '0777'
+        owner: "{{ file_owner }}"
+        group: "{{ file_owner }}"
+        modification_time: preserve
+        access_time: preserve
