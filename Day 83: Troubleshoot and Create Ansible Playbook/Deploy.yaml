@@ -1,0 +1,23 @@
+# Save the inventory file
+cat > /home/thor/ansible/inventory << 'EOF'
+[app_server_1]
+stapp01 ansible_host=172.16.238.10 ansible_user=tony ansible_password=Ir0nM@n ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+EOF
+
+# Save the playbook file
+cat > /home/thor/ansible/playbook.yml << 'EOF'
+---
+- name: Create file on App Server 1
+  hosts: app_server_1
+  gather_facts: no
+  tasks:
+    - name: Create empty file /tmp/file.txt
+      file:
+        path: /tmp/file.txt
+        state: touch
+        mode: '0644'
+EOF
+
+# Run the playbook
+cd /home/thor/ansible
+ansible-playbook -i inventory playbook.yml
