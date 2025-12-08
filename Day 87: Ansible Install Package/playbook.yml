@@ -1,0 +1,9 @@
+---
+- name: Install zip package on all app servers
+  hosts: app_servers
+
+  tasks:
+    - name: Install zip package using yum
+      yum:
+        name: zip
+        state: present
