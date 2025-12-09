@@ -6,7 +6,7 @@ This project sets up an automated release tagging system for the ecommerce git r
 
 ## Project Details
 
-- **Repository Location**: `/opt/ecommerce.git` (cloned to `/usr/src/kodekloudrepos/ecommerce.git`)
+- **Repository Location**: `/opt/ecommerce.git` (cloned to `/usr/src/kodekloudrepos/ecommerce.git`) 
 - **Server**: Storage server in Stratos DC
 - **User**: natasha
 - **Hook Type**: post-update (server-side hook)
