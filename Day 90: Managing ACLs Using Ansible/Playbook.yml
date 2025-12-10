@@ -1,0 +1,78 @@
+---
+- name: Create files with ACL permissions on app server 1
+  hosts: stapp01
+  become: yes
+  tasks:
+    - name: Ensure /opt/dba directory exists
+      file:
+        path: /opt/dba
+        state: directory
+        mode: '0755'
+
+    - name: Create blog.txt file
+      file:
+        path: /opt/dba/blog.txt
+        state: touch
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Set ACL for group tony on blog.txt
+      acl:
+        path: /opt/dba/blog.txt
+        entity: tony
+        etype: group
+        permissions: r
+        state: present
+
+- name: Create files with ACL permissions on app server 2
+  hosts: stapp02
+  become: yes
+  tasks:
+    - name: Ensure /opt/dba directory exists
+      file:
+        path: /opt/dba
+        state: directory
+        mode: '0755'
+
+    - name: Create story.txt file
+      file:
+        path: /opt/dba/story.txt
+        state: touch
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Set ACL for user steve on story.txt
+      acl:
+        path: /opt/dba/story.txt
+        entity: steve
+        etype: user
+        permissions: rw
+        state: present
+
+- name: Create files with ACL permissions on app server 3
+  hosts: stapp03
+  become: yes
+  tasks:
+    - name: Ensure /opt/dba directory exists
+      file:
+        path: /opt/dba
+        state: directory
+        mode: '0755'
+
+    - name: Create media.txt file
+      file:
+        path: /opt/dba/media.txt
+        state: touch
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Set ACL for group banner on media.txt
+      acl:
+        path: /opt/dba/media.txt
+        entity: banner
+        etype: group
+        permissions: rw
+        state: present
